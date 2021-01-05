@@ -1,0 +1,1 @@
+enum TaskStatus { toDo, done, cancelled }

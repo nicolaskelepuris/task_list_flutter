@@ -1,0 +1,89 @@
+import 'package:task_list_app/domain/auth/models/token.model.dart';
+import 'package:task_list_app/domain/auth/models/user.model.dart';
+import 'package:flutter/foundation.dart';
+
+import 'auth.domain.repository.dart';
+
+class AuthDomainService {
+  final AuthDomainRepository _repository;
+  const AuthDomainService({@required AuthDomainRepository repository})
+      : _repository = repository;
+
+  Future<UserModel> authenticateUser({
+    @required String login,
+    @required String password,
+  }) async {
+    try {
+      var response = await _repository.validateUserPassword(
+        login: login,
+        password: password,
+      );
+
+      var token = TokenModel.fromData(response.token);
+      token.save();
+
+      var user = UserModel.fromData(response.user);
+      await user.save();
+      _repository.saveUsername(user.name);
+      return user;
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<UserModel> getUser() async {
+    try {
+      var response = await _repository.getUserInfo();
+      var user = UserModel.fromData(response);
+      await user.save();
+      _repository.saveUsername(user.name);
+      return user;
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<String> getUsername() async {
+    try {
+      String username = _repository.getUsername();
+      return username != null
+          ? username
+          : () async {
+              var user = await getUser();
+              return user.name;
+            };
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<bool> isAuthenticated() async {
+    try {
+      var hasToken = _repository.hasToken();
+      if (hasToken) {
+        var tokenData = _repository.getAuthToken();
+        var token = TokenModel.fromData(tokenData);
+        token.save();
+      }
+
+      var hasUser = await _repository.hasUserSaved();
+      if (hasToken && hasUser) {
+        return true;
+      } else {
+        await logoutUser();
+      }
+      return hasToken && hasUser;
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<void> logoutUser() async {
+    try {
+      await _repository.clearHive();
+      await _repository.clearStorage();
+    } catch (err) {
+      rethrow;
+    }
+  }
+}
