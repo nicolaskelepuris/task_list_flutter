@@ -14,4 +14,6 @@ class HomeNamedRoutes {
   static const VESSEL = '/vessel';
   static const VESSELS = '/vessels';
   static const VESSEL_REGISTER = '/vesselregister';
+
+  static const USERS = '/users';
 }

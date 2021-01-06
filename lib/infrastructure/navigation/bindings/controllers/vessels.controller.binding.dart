@@ -4,8 +4,7 @@ import 'package:task_list_app/presentation/home/widgets/custom_binding.dart';
 import 'package:task_list_app/presentation/vessels/controllers/vessels.controller.dart';
 
 class VesselsControllerBinding extends CustomBinding {
-  VesselsControllerBinding({this.screenArgs});
-  final dynamic screenArgs;
+  VesselsControllerBinding();
   @override
   void dependencies({Map<String, dynamic> arguments}) {
     var vesselDomainBinding = VesselDomainBinding();

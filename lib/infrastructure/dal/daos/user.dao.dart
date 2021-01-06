@@ -14,6 +14,8 @@ class UserDao with BaseDao<UserDao> {
   @HiveField(2)
   String email;
 
+  bool isAdmin;
+
   UserDao({this.id, this.name, this.email});
 
   @override

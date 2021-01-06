@@ -3,3 +3,4 @@ export 'dashboard.controller.binding.dart';
 export 'home.controller.binding.dart';
 export 'login.controller.binding.dart';
 export 'vessels.controller.binding.dart';
+export 'users.controller.binding.dart';

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:task_list_app/domain/core/utils/menu.util.dart';
 import 'package:task_list_app/presentation/home/widgets/menu_item_route.widget.dart';
 
-
 class PagesController extends GetxController {
   final ScrollController _scrollController;
   PagesController() : _scrollController = ScrollController();
@@ -17,7 +16,10 @@ class PagesController extends GetxController {
     ever<MenuItemRoute>(currentPage, _moveToItem);
 
     currentPage.value = MenuUtil.allItens.first;
+    menuItems.assignAll(MenuUtil.allItens);
   }
+
+  final menuItems = <MenuItemRoute>[].obs;
 
   void _moveToItem(MenuItemRoute item) {
     if (_scrollController.hasClients) {

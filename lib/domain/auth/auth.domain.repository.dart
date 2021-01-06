@@ -6,6 +6,7 @@ import 'package:task_list_app/infrastructure/dal/services/auth/data/token.data.d
 import 'package:task_list_app/infrastructure/dal/services/auth/dto/authenticate_user.body.dart';
 import 'package:task_list_app/infrastructure/dal/services/auth/dto/authenticate_user.response.dart';
 import 'package:task_list_app/infrastructure/dal/services/data/user.data.dart';
+import 'package:task_list_app/infrastructure/dal/services/user/dto/register_user.body.dart';
 import 'package:task_list_app/infrastructure/dal/services/user/user.service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_storage/get_storage.dart';
@@ -40,11 +41,85 @@ class AuthDomainRepository {
     }
   }
 
-  Future<UserData> getUserInfo() async {
+  Future<UserData> getCurrentUserInfo() async {
     try {
-      var response = await _userService.getUserInfo();
+      var response = await _userService.getCurrentUserInfo();
       if (response.success) {
         return response.data.user;
+      } else {
+        throw DefaultException(message: response.error.message);
+      }
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<UserData> registerUser({
+    @required String name,
+    @required String email,
+    @required String password,
+  }) async {
+    try {
+      var body = RegisterUserBody(
+        name: name,
+        email: email,
+        password: password,
+      );
+
+      var token = _storage.read(StorageConstants.TOKEN_AUTHORIZATION);
+
+      var response = await _userService.registerUser(body, token);
+
+      if (response.success) {
+        return response.data.user;
+      } else {
+        throw DefaultException(message: response.error.message);
+      }
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<UserData> updateUser({@required UserData userData}) async {
+    try {
+      var body = RegisterUserBody(
+        name: userData.name,
+        email: userData.email,
+      );
+
+      var token = _storage.read(StorageConstants.TOKEN_AUTHORIZATION);
+
+      var response = await _userService.updateUser(
+          body: body, token: token, id: userData.id);
+
+      if (response.success) {
+        return response.data.user;
+      } else {
+        throw DefaultException(message: response.error.message);
+      }
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<UserData> getUserInfo({@required String id}) async {
+    try {
+      var response = await _userService.getUserInfo(id: id);
+      if (response.success) {
+        return response.data.user;
+      } else {
+        throw DefaultException(message: response.error.message);
+      }
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<List<UserData>> getUsersInfo() async {
+    try {
+      var response = await _userService.getUsersInfo();
+      if (response.success) {
+        return response.data.users;
       } else {
         throw DefaultException(message: response.error.message);
       }

@@ -34,6 +34,10 @@ class TextFieldWidget extends StatefulWidget {
 
   final String textInitialValue;
 
+  final bool obscureText;
+
+  final String helperText;
+
   TextFieldWidget(
       {@required this.label,
       this.width,
@@ -43,7 +47,9 @@ class TextFieldWidget extends StatefulWidget {
       this.type = TypeTextField.TEXT,
       this.onDateChanged,
       this.dateInitialValue,
-      this.textInitialValue});
+      this.textInitialValue,
+      this.obscureText = false,
+      this.helperText = ''});
 
   @override
   _TextFieldWidgetState createState() => _TextFieldWidgetState();
@@ -121,11 +127,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   color:
                       widget.enabled ? Colors.transparent : Color(0xFFEBEEF3),
                   child: TextFormField(
+                    obscureText: widget.obscureText,
                     onChanged: widget.onChanged,
                     controller: _controller,
                     enabled:
                         widget.enabled && widget.type != TypeTextField.DATE,
                     decoration: InputDecoration(
+                      helperText: widget.helperText,
                       border: OutlineInputBorder(
                         borderSide: BorderSide(width: 0),
                         borderRadius: BorderRadius.circular(2),

@@ -59,7 +59,7 @@ class MenuWidget extends GetView<PagesController> {
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 20),
                         child: Column(
-                          children: MenuUtil.allItens.map(
+                          children: controller.menuItems.map(
                             (e) {
                               return ItemMenuWidget(
                                 item: e,

@@ -84,7 +84,7 @@ class AppointmentFormWidget extends StatelessWidget {
                   builder: (_) {
                     return TextFieldWidget(
                       label: 'DUV',
-                      width: .25,
+                      width: .2,
                       textInitialValue:
                           hasInitialValue ? appointment.duvNumber.value : null,
                       onChanged: (val) => appointment.duvNumber.value = val,
@@ -96,7 +96,7 @@ class AppointmentFormWidget extends StatelessWidget {
                   builder: (_) {
                     return TextFieldWidget(
                       label: 'Schedule',
-                      width: .25,
+                      width: .2,
                       onChanged: (val) =>
                           appointment.scheduleNumber.value = val,
                       textInitialValue: hasInitialValue
@@ -114,7 +114,7 @@ class AppointmentFormWidget extends StatelessWidget {
                   builder: (_) {
                     return TextFieldWidget(
                       label: 'Voyage',
-                      width: .25,
+                      width: .2,
                       onChanged: (val) => appointment.voyageNumber.value = val,
                       textInitialValue: hasInitialValue
                           ? appointment.voyageNumber.value
@@ -127,7 +127,7 @@ class AppointmentFormWidget extends StatelessWidget {
                   builder: (_) {
                     return TextFieldWidget(
                       label: 'Cargo',
-                      width: .25,
+                      width: .2,
                       onChanged: (val) => appointment.cargo.value = val,
                       textInitialValue:
                           hasInitialValue ? appointment.cargo.value : null,
@@ -159,7 +159,7 @@ class AppointmentFormWidget extends StatelessWidget {
                   builder: (_) {
                     return TextFieldWidget(
                       label: 'On-signers',
-                      width: .25,
+                      width: .2,
                       onChanged: (val) => appointment.onSigners.value =
                           _validateNotRequiredIntegerInput(val)
                               ? (int.tryParse(val) ?? 0)
@@ -176,7 +176,7 @@ class AppointmentFormWidget extends StatelessWidget {
                   builder: (_) {
                     return TextFieldWidget(
                       label: 'Off-signers',
-                      width: .25,
+                      width: .2,
                       onChanged: (val) => appointment.offSigners.value =
                           _validateNotRequiredIntegerInput(val)
                               ? (int.tryParse(val) ?? 0)

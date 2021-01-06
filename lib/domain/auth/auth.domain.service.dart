@@ -1,6 +1,7 @@
 import 'package:task_list_app/domain/auth/models/token.model.dart';
 import 'package:task_list_app/domain/auth/models/user.model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:task_list_app/infrastructure/dal/services/data/user.data.dart';
 
 import 'auth.domain.repository.dart';
 
@@ -31,13 +32,65 @@ class AuthDomainService {
     }
   }
 
-  Future<UserModel> getUser() async {
+  Future<UserModel> getCurrentUser() async {
     try {
-      var response = await _repository.getUserInfo();
+      var response = await _repository.getCurrentUserInfo();
       var user = UserModel.fromData(response);
       await user.save();
       _repository.saveUsername(user.name);
       return user;
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<UserModel> registerUser({
+    @required UserModel user,
+    @required String password,
+  }) async {
+    try {
+      return UserModel.fromData(await _repository.registerUser(
+        name: user.name,
+        email: user.email,
+        password: password,
+      ));
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<UserModel> updateUser({@required UserModel user}) async {
+    try {
+      return UserModel.fromData(await _repository.updateUser(
+        userData: UserData(
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          isAdmin: user.isAdmin
+        ),
+      ));
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<UserModel> getUserInfo({@required String id}) async {
+    try {
+      var response = await _repository.getUserInfo(id: id);
+      var user = UserModel.fromData(response);
+
+      return user;
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<List<UserModel>> getUsersInfo() async {
+    try {
+      var response = await _repository.getUsersInfo();
+      var users = response.map((e) => UserModel.fromData(e)).toList();
+
+      return users;
     } catch (err) {
       rethrow;
     }
@@ -49,7 +102,7 @@ class AuthDomainService {
       return username != null
           ? username
           : () async {
-              var user = await getUser();
+              var user = await getCurrentUser();
               return user.name;
             };
     } catch (err) {

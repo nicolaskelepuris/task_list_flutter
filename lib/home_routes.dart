@@ -6,6 +6,7 @@ import 'package:task_list_app/presentation/dashboard/controllers/dashboard.contr
 import 'package:task_list_app/presentation/dashboard/dashboard.screen.dart';
 import 'package:task_list_app/presentation/home/widgets/menu_item_route.widget.dart';
 import 'package:task_list_app/presentation/screens.dart';
+import 'package:task_list_app/presentation/users/controllers/users.controller.dart';
 import 'package:task_list_app/presentation/vessels/controllers/vessels.controller.dart';
 
 import 'infrastructure/navigation/bindings/controllers/dashboard.controller.binding.dart';
@@ -44,4 +45,15 @@ abstract class HomeRoutes {
     binding: AppointmentsControllerBinding(),
     removeBinding: () => Get.delete<AppointmentsController>(),
   ); 
+
+  static final users = MenuItemRoute(
+    id: 4,
+    descricao: 'Users',
+    descricaoLonga: 'Users',
+    icon: Icons.supervisor_account,
+    path: HomeNamedRoutes.USERS,
+    page: UsersScreen(),
+    binding: UsersControllerBinding(),
+    removeBinding: () => Get.delete<UsersController>(),
+  );
 }

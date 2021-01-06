@@ -7,11 +7,13 @@ part 'user.data.g.dart';
 class UserData {
   final String id;
   final String name, email;
+  final bool isAdmin;
 
   UserData({
     @required this.id,
     @required this.name,
     @required this.email,
+    @required this.isAdmin
   });
 
   factory UserData.fromJson(json) => _$UserDataFromJson(json);
