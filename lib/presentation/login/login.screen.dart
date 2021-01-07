@@ -17,7 +17,7 @@ class LoginScreen extends GetView<LoginController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('TASK LIST APP', style: Get.textTheme.headline3),
+              Text('ATLANTIC SHIPPING', style: Get.textTheme.headline3),
               SizedBox(height: 50),
               LoginTextFieldWidget(),
               SizedBox(height: 10),

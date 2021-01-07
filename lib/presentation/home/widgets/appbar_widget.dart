@@ -4,6 +4,8 @@ import 'package:task_list_app/presentation/home/controllers/home.controller.dart
 
 class AppBarWidget extends StatelessWidget {
   final HomeController controller = Get.find();
+  AppBarWidget({@required this.onLogout});
+  final Function onLogout;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -24,8 +26,35 @@ class AppBarWidget extends StatelessWidget {
           color: Colors.white,
           icon: Icon(Icons.account_circle),
         ),
+        SizedBox(width: 10),
+        PopupMenuButton<SettingsOptions>(
+          child: Icon(
+            Icons.settings,
+            size: 32,
+            color: Colors.white,
+          ),
+          onSelected: (option) {
+            if (option == SettingsOptions.Logout) {
+              onLogout();
+            }
+          },
+          offset: Offset.fromDirection(1.571, 40.0),
+          
+          itemBuilder: (_) {
+            return <PopupMenuEntry<SettingsOptions>>[
+              PopupMenuItem(
+                child: Text('Logout'),
+                value: SettingsOptions.Logout,
+              )
+            ];
+          },
+        ),
         SizedBox(width: 7),
       ],
     );
   }
+}
+
+enum SettingsOptions {
+  Logout,
 }

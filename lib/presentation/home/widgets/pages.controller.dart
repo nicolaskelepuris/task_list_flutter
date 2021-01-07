@@ -41,19 +41,21 @@ class PagesController extends GetxController {
   }
 
   void removePage(MenuItemRoute item) {
-    if (paginasAbertas.length != 1) {
-      this.arguments = null;
-      if (item == currentPage.value) {
-        var index = paginasAbertas.indexOf(item);
-        if (index == (paginasAbertas.length - 1)) {
-          currentPage.value = paginasAbertas[--index];
-        } else {
-          currentPage.value = paginasAbertas[++index];
+    if (item.id != 1) {
+      if (paginasAbertas.length != 1) {
+        this.arguments = null;
+        if (item == currentPage.value) {
+          var index = paginasAbertas.indexOf(item);
+          if (index == (paginasAbertas.length - 1)) {
+            currentPage.value = paginasAbertas[--index];
+          } else {
+            currentPage.value = paginasAbertas[++index];
+          }
+          currentPage.value.openScreen();
         }
-        currentPage.value.openScreen();
+        paginasAbertas.removeWhere((i) => i == item);
+        item.removeBinding();
       }
-      paginasAbertas.removeWhere((i) => i == item);
-      item.removeBinding();
     }
   }
 
