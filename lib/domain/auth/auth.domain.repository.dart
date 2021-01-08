@@ -6,6 +6,7 @@ import 'package:task_list_app/infrastructure/dal/services/auth/data/token.data.d
 import 'package:task_list_app/infrastructure/dal/services/auth/dto/authenticate_user.body.dart';
 import 'package:task_list_app/infrastructure/dal/services/auth/dto/authenticate_user.response.dart';
 import 'package:task_list_app/infrastructure/dal/services/data/user.data.dart';
+import 'package:task_list_app/infrastructure/dal/services/user/dto/change_password.body.dart';
 import 'package:task_list_app/infrastructure/dal/services/user/dto/register_user.body.dart';
 import 'package:task_list_app/infrastructure/dal/services/user/user.service.dart';
 import 'package:flutter/foundation.dart';
@@ -97,6 +98,65 @@ class AuthDomainRepository {
       } else {
         throw DefaultException(message: response.error.message);
       }
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<UserData> changePassword(
+      {@required String currentPassword, @required String newPassword}) async {
+    try {
+      var body = ChangePasswordBody(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      );
+
+      var token = _storage.read(StorageConstants.TOKEN_AUTHORIZATION);
+
+      var response = await _userService.changePassword(
+        body: body,
+        token: token,
+      );
+
+      if (response.success) {
+        return response.data.user;
+      } else {
+        throw DefaultException(message: response.error.message);
+      }
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<String> resetPassword({@required UserData userData}) async {
+    try {
+      var token = _storage.read(StorageConstants.TOKEN_AUTHORIZATION);
+
+      var response = await _userService.resetPassword(
+        token: token,
+        id: userData.id,
+      );
+
+      if (response.success) {
+        return response.data.password;
+      } else {
+        throw DefaultException(message: response.error.message);
+      }
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<bool> deleteUser({@required String id}) async {
+    try {
+      var token = _storage.read(StorageConstants.TOKEN_AUTHORIZATION);
+
+      var successResponse = await _userService.deleteUser(
+        token: token,
+        id: id,
+      );
+
+      return successResponse;
     } catch (err) {
       rethrow;
     }

@@ -70,10 +70,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   }
 
   void _getDateTime() {
-    _dateTime = widget.dateInitialValue?.value != null &&
-            widget.dateInitialValue.value.year != 1970
-        ? widget.dateInitialValue.value
-        : DateTime.now();
+    if (widget.dateInitialValue?.value != null &&
+        widget.dateInitialValue.value.year != 1970) {
+      _dateTime = widget.dateInitialValue.value;
+    } else {
+      _dateTime = DateTime.now();
+      _dateTime = DateTime(_dateTime.year, _dateTime.month, _dateTime.day);
+    }
   }
 
   void openDatePicker() async {
@@ -86,9 +89,19 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       lastDate: DateTime.now().add(Duration(days: 730)),
     );
 
+    var timeResult = await showTimePicker(
+        context: context, initialTime: TimeOfDay(hour: 0, minute: 0));
+
+    _dateTime = DateTime(
+      result?.year ?? _dateTime.year,
+      result?.month ?? _dateTime.month,
+      result?.day ?? _dateTime.day,
+      timeResult?.hour ?? _dateTime.hour,
+      timeResult?.minute ?? _dateTime.minute,
+    );
+
     setState(() {
-      _dateTime = result ?? _dateTime;
-      _controller.text = DateFormat('dd/MM/yyyy').format(result ?? _dateTime);
+      _controller.text = DateFormat('dd/MM/yyyy HH:mm').format(_dateTime);
     });
     widget.onDateChanged(_dateTime);
   }
@@ -98,7 +111,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
     if (widget.type == TypeTextField.DATE) {
       if (widget.dateInitialValue?.value != null) {
         _controller.text = widget.dateInitialValue.value.year != 1970
-            ? DateFormat('dd/MM/yyyy').format(widget.dateInitialValue.value)
+            ? DateFormat('dd/MM/yyyy HH:mm').format(widget.dateInitialValue.value)
             : '';
       } else {
         _controller.clear();
@@ -123,31 +136,27 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           Row(
             children: [
               Flexible(
-                child: Container(
-                  color:
-                      widget.enabled ? Colors.transparent : Color(0xFFEBEEF3),
-                  child: TextFormField(
-                    obscureText: widget.obscureText,
-                    onChanged: widget.onChanged,
-                    controller: _controller,
-                    enabled:
-                        widget.enabled && widget.type != TypeTextField.DATE,
-                    decoration: InputDecoration(
-                      helperText: widget.helperText,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(width: 0),
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                      disabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 0,
-                          color: Colors.grey.withOpacity(.5),
-                        ),
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                      isDense: true,
-                      contentPadding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+                child: TextFormField(
+                  obscureText: widget.obscureText,
+                  onChanged: widget.onChanged,
+                  controller: _controller,
+                  enabled: widget.enabled && widget.type != TypeTextField.DATE,
+                  decoration: InputDecoration(
+                    helperText:
+                        widget.helperText.isNotEmpty ? widget.helperText : null,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(width: 0),
+                      borderRadius: BorderRadius.circular(2),
                     ),
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 0,
+                        color: Colors.grey.withOpacity(.5),
+                      ),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(12, 12, 12, 12),
                   ),
                 ),
               ),

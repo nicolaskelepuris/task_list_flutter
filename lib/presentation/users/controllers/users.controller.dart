@@ -112,6 +112,14 @@ class UsersController extends GetxController
     }
   }
 
+  Future<String> resetPassword({@required UserModel user}) async {
+    try {
+      return await _authDomainService.resetPassword(user: user);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<UserModel> _updateUser() async {
     try {
       var user = _authDomainService.updateUser(user: userForm);
@@ -120,6 +128,19 @@ class UsersController extends GetxController
       return user;
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<void> deleteUser({@required UserModel user}) async {
+    try {
+      var success = await _authDomainService.deleteUser(id: user.id);
+
+      if (success) {
+        SnackbarUtil.showSuccess(
+            message: 'User "${user.name}" has been deleted');
+      }
+    } catch (err) {
+      SnackbarUtil.showError(message: err.toString());
     }
   }
 

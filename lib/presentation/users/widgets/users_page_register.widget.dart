@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_list_app/domain/core/utils/dialog.util.dart';
 import 'package:task_list_app/presentation/appointments/widgets/cancel_button.widget.dart';
 import 'package:task_list_app/presentation/appointments/widgets/new_button.widget.dart';
 import 'package:task_list_app/presentation/users/controllers/users.controller.dart';
@@ -17,7 +18,9 @@ class UsersPageRegisterWidget extends GetView<UsersController> {
         PageHeaderWidget(
           onBackPressed: controller.closeRegisterScreen,
           options: [
-            NewButtonWidget(onTap: controller.clearForm, buttonText: 'Clear',),
+            NewButtonWidget(
+              onTap: controller.clearForm,
+            ),
             SizedBox(width: 20),
             CancelButtonWidget(onTap: controller.discardEditChanges),
             SizedBox(width: 20),
@@ -37,6 +40,21 @@ class UsersPageRegisterWidget extends GetView<UsersController> {
                     user: user,
                     hasInitialValue: hasInitialValue,
                     password: controller.password,
+                    onResetPasswordButtonPressed: () async {
+                      var password = await controller.resetPassword(
+                          user: controller.userToBeEdited);
+                      if (password != null && password.isNotEmpty) {
+                        DialogUtil.showAlertDialog(
+                            context,
+                            'Password has been reset',
+                            'New password for ${user.name}: $password');
+                      }
+                    },
+                    onDeleteUserButtonPressed: () async {
+                      await controller.deleteUser(
+                          user: controller.userToBeEdited);
+                      controller.clearForm();
+                    },
                   );
                 },
               ),

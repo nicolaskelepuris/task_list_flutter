@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class CancelButtonWidget extends StatelessWidget {
   final void Function() onTap;
   final String buttonText;
-  const CancelButtonWidget({@required this.onTap, this.buttonText = 'Discard'});
+  final double width;
+  const CancelButtonWidget({@required this.onTap, this.buttonText = 'Cancel', this.width = 75});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class CancelButtonWidget extends StatelessWidget {
       ),
       child: SizedBox(
         height: 35,
-        width: 75,
+        width: width,
         child: Center(
           child: Text(
             buttonText,

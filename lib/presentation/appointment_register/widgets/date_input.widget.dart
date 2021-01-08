@@ -15,7 +15,7 @@ class DateInputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(minWidth: 200),
+      constraints: BoxConstraints(minWidth: 230),
       child: TextFieldWidget(
         label: label,
         type: TypeTextField.DATE,

@@ -63,12 +63,47 @@ class AuthDomainService {
     try {
       return UserModel.fromData(await _repository.updateUser(
         userData: UserData(
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          isAdmin: user.isAdmin
-        ),
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin),
       ));
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<UserModel> changePassword(
+      {@required String currentPassword, @required String newPassword}) async {
+    try {
+      return UserModel.fromData(await _repository.changePassword(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      ));
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<String> resetPassword({@required UserModel user}) async {
+    try {
+      return await _repository.resetPassword(
+        userData: UserData(
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin),
+      );
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<bool> deleteUser({@required String id}) async {
+    try {
+      return await _repository.deleteUser(
+        id: id,
+      );
     } catch (err) {
       rethrow;
     }

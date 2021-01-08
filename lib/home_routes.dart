@@ -11,6 +11,7 @@ import 'package:task_list_app/presentation/vessels/controllers/vessels.controlle
 
 import 'infrastructure/navigation/bindings/controllers/dashboard.controller.binding.dart';
 import 'infrastructure/navigation/home_named_routes.dart';
+import 'presentation/account/controllers/account.controller.dart';
 
 abstract class HomeRoutes {
   static final dashboard = MenuItemRoute(
@@ -55,5 +56,16 @@ abstract class HomeRoutes {
     page: UsersScreen(),
     binding: UsersControllerBinding(),
     removeBinding: () => Get.delete<UsersController>(),
+  );
+
+  static final account = MenuItemRoute(
+    id: 5,
+    descricao: 'Account',
+    descricaoLonga: 'Account',
+    icon: Icons.account_circle,
+    path: HomeNamedRoutes.ACCOUNT,
+    page: AccountScreen(),
+    binding: AccountControllerBinding(),
+    removeBinding: () => Get.delete<AccountController>(),
   );
 }

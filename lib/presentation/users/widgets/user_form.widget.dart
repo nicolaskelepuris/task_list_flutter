@@ -3,14 +3,22 @@ import 'package:get/get.dart';
 import 'package:task_list_app/domain/auth/models/user.model.dart';
 import 'package:task_list_app/domain/vessel/models/vessel.dart';
 import 'package:task_list_app/helpers/input_validator.dart';
+import 'package:task_list_app/presentation/appointments/widgets/cancel_button.widget.dart';
 import 'package:task_list_app/presentation/shared/textfield/text_field.widget.dart';
 
 class UserFormWidget extends StatelessWidget {
   final bool hasInitialValue;
   final UserModel user;
   final RxString password;
-  UserFormWidget(
-      {@required this.hasInitialValue, @required this.user, this.password});
+  final Function onResetPasswordButtonPressed;
+  final Function onDeleteUserButtonPressed;
+  UserFormWidget({
+    @required this.hasInitialValue,
+    @required this.user,
+    this.password,
+    this.onResetPasswordButtonPressed,
+    this.onDeleteUserButtonPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +41,7 @@ class UserFormWidget extends StatelessWidget {
               textInitialValue: hasInitialValue ? user.email : null,
               requiredField: true,
             ),
+            SizedBox(width: 40),
           ],
         ),
         !hasInitialValue
@@ -47,6 +56,29 @@ class UserFormWidget extends StatelessWidget {
                     helperText: 'Use 5 or more letters, numbers or symbols',
                   ),
                 ],
+              )
+            : Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: CancelButtonWidget(
+                    onTap: onResetPasswordButtonPressed,
+                    buttonText: 'Reset password',
+                    width: 110,
+                  ),
+                ),
+              ),
+        hasInitialValue
+            ? Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: CancelButtonWidget(
+                    onTap: onDeleteUserButtonPressed,
+                    buttonText: 'Delete user',
+                    width: 110,
+                  ),
+                ),
               )
             : SizedBox(),
       ],

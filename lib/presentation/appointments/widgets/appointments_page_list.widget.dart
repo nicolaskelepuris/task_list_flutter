@@ -66,7 +66,7 @@ class AppointmentsPageListWidget extends GetView<AppointmentsController> {
 
   String _dateToString(DateTime date) {
     return date != null && date.year != 1970
-        ? DateFormat('dd/MM/yyyy').format(date)
+        ? DateFormat('dd/MM/yyyy HH:mm').format(date)
         : '-';
   }
 

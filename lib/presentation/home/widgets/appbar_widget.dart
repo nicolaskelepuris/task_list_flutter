@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_list_app/presentation/home/controllers/home.controller.dart';
+import 'package:task_list_app/presentation/home/widgets/pages.controller.dart';
+
+import '../../../home_routes.dart';
 
 class AppBarWidget extends StatelessWidget {
   final HomeController controller = Get.find();
@@ -21,7 +24,10 @@ class AppBarWidget extends StatelessWidget {
         }),
         SizedBox(width: 7),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            PagesController pagesController = Get.find();
+            pagesController.setCurrentPage(HomeRoutes.account);
+          },
           iconSize: 32,
           color: Colors.white,
           icon: Icon(Icons.account_circle),
@@ -39,7 +45,6 @@ class AppBarWidget extends StatelessWidget {
             }
           },
           offset: Offset.fromDirection(1.571, 40.0),
-          
           itemBuilder: (_) {
             return <PopupMenuEntry<SettingsOptions>>[
               PopupMenuItem(

@@ -55,9 +55,7 @@ class LoginController extends GetxController {
   final loginFocus = FocusNode();
   void validateLogin(String val) {
     if (val.isEmpty) {
-      loginError.value = 'Digite seu login';
-    } else if (val.length < 3) {
-      loginError.value = 'Login inválido';
+      loginError.value = 'Login must not be empty';
     } else {
       loginError.nil();
     }
@@ -68,9 +66,7 @@ class LoginController extends GetxController {
   final passwordFocus = FocusNode();
   void validatePassword(String val) {
     if (val.isEmpty) {
-      passwordError.value = 'Digite sua senha';
-    } else if (val.length < 3) {
-      passwordError.value = 'Senha inválida, no mínimo 3 caracters.';
+      passwordError.value = 'Password must not be empty';
     } else {
       passwordError.nil();
     }
