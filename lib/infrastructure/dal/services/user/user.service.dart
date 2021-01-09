@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:task_list_app/infrastructure/dal/services/user/dto/get_users_info.response.dart';
 
 import 'dto/change_password.body.dart';
-import 'dto/delete_user.response.dart';
 import 'dto/register_user.body.dart';
 
 class UserService {

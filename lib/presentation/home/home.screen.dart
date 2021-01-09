@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:task_list_app/infrastructure/navigation/routes.dart';
 import 'package:task_list_app/presentation/home/widgets/appbar_widget.dart';
 import 'package:task_list_app/presentation/home/widgets/menu.widget.dart';
-import 'package:task_list_app/presentation/home/widgets/pages.controller.dart';
 import 'package:task_list_app/presentation/home/widgets/pages.widget.dart';
 import 'package:task_list_app/presentation/shared/loading/base.widget.dart';
 

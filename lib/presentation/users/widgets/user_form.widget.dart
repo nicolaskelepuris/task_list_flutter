@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_list_app/domain/auth/models/user.model.dart';
-import 'package:task_list_app/domain/vessel/models/vessel.dart';
-import 'package:task_list_app/helpers/input_validator.dart';
 import 'package:task_list_app/presentation/appointments/widgets/cancel_button.widget.dart';
 import 'package:task_list_app/presentation/shared/textfield/text_field.widget.dart';
 
@@ -35,7 +33,7 @@ class UserFormWidget extends StatelessWidget {
             ),
             SizedBox(width: 40),
             TextFieldWidget(
-              label: 'Email',
+              label: 'E-mail',
               width: .2,
               onChanged: (val) => user.email = val,
               textInitialValue: hasInitialValue ? user.email : null,
@@ -64,7 +62,7 @@ class UserFormWidget extends StatelessWidget {
                   child: CancelButtonWidget(
                     onTap: onResetPasswordButtonPressed,
                     buttonText: 'Reset password',
-                    width: 110,
+                    width: 130,
                   ),
                 ),
               ),
@@ -76,7 +74,7 @@ class UserFormWidget extends StatelessWidget {
                   child: CancelButtonWidget(
                     onTap: onDeleteUserButtonPressed,
                     buttonText: 'Delete user',
-                    width: 110,
+                    width: 130,
                   ),
                 ),
               )

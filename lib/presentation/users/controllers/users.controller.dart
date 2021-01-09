@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:task_list_app/domain/auth/auth.domain.service.dart';
 import 'package:task_list_app/domain/auth/models/user.model.dart';
 import 'package:task_list_app/domain/core/utils/snackbar.util.dart';
-import 'package:task_list_app/domain/vessel/models/vessel.dart';
 import 'package:task_list_app/helpers/input_validator.dart';
 import 'package:task_list_app/presentation/shared/loading/loading.controller.dart';
 
@@ -90,7 +89,7 @@ class UsersController extends GetxController
         Get.focusScope.unfocus();
       } else {
         SnackbarUtil.showWarning(
-          message: 'Preencha os campos obrigatórios',
+          message: 'All required fields must be filled',
         );
       }
     } catch (err) {
@@ -102,10 +101,10 @@ class UsersController extends GetxController
 
   Future<UserModel> _registerUser() async {
     try {
-      var user = _authDomainService.registerUser(
+      var user = await _authDomainService.registerUser(
           user: userForm, password: password.value);
 
-      SnackbarUtil.showSuccess(message: 'User has been registered');
+      SnackbarUtil.showSuccess(message: 'User "${user.name}" has been registered');
       return user;
     } catch (e) {
       rethrow;
@@ -122,9 +121,9 @@ class UsersController extends GetxController
 
   Future<UserModel> _updateUser() async {
     try {
-      var user = _authDomainService.updateUser(user: userForm);
+      var user = await _authDomainService.updateUser(user: userForm);
 
-      SnackbarUtil.showSuccess(message: 'User has been updated');
+      SnackbarUtil.showSuccess(message: 'User "${user.name}" has been updated');
       return user;
     } catch (e) {
       rethrow;

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:task_list_app/presentation/account/controllers/account.controller.dart';
 import 'package:task_list_app/presentation/appointments/widgets/cancel_button.widget.dart';
 import 'package:task_list_app/presentation/appointments/widgets/new_button.widget.dart';
-import 'package:task_list_app/presentation/users/widgets/user_form.widget.dart';
 import 'package:task_list_app/presentation/vessels/widgets/page_header.widget.dart';
 import 'package:task_list_app/presentation/vessels/widgets/save_button.widget.dart';
 
@@ -31,7 +30,7 @@ class AccountPageRegisterWidget extends GetView<AccountController> {
               : PageHeaderWidget(
                   options: [
                     NewButtonWidget(
-                        onTap: () => controller.updatingPassword.value = true, buttonText: 'Change password', width: 110,),
+                        onTap: () => controller.updatingPassword.value = true, buttonText: 'Change password', width: 130,),
                   ],
                 );
         }),

@@ -7,7 +7,6 @@ import 'package:task_list_app/presentation/users/controllers/users.controller.da
 import 'package:task_list_app/presentation/users/widgets/user_form.widget.dart';
 import 'package:task_list_app/presentation/vessels/widgets/page_header.widget.dart';
 import 'package:task_list_app/presentation/vessels/widgets/save_button.widget.dart';
-import 'package:task_list_app/presentation/vessels/widgets/vessel_form.widget.dart';
 
 class UsersPageRegisterWidget extends GetView<UsersController> {
   @override

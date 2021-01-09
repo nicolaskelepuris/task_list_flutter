@@ -21,7 +21,7 @@ class VesselFormWidget extends StatelessWidget {
         Row(
           children: [
             TextFieldWidget(
-              label: 'Nome',
+              label: 'Name',
               textInitialValue: hasInitialValue ? vessel.name : null,
               onChanged: (val) => vessel.name = val,
               width: .2,
@@ -41,7 +41,7 @@ class VesselFormWidget extends StatelessWidget {
         Row(
           children: [
             TextFieldWidget(
-              label: 'Bandeira',
+              label: 'Flag',
               width: .2,
               onChanged: (val) => vessel.flag = val,
               textInitialValue: hasInitialValue ? vessel.flag : null,
@@ -52,7 +52,10 @@ class VesselFormWidget extends StatelessWidget {
               label: 'Deadweight',
               width: .2,
               onChanged: (val) {
-                vessel.deadweight = _validateNotRequiredDoubleInput(val) ? (double.tryParse(val) ?? 0) : null;
+                val = val.replaceAll(new RegExp(','), '.');
+                vessel.deadweight = _validateNotRequiredDoubleInput(val)
+                    ? (double.tryParse(val) ?? 0)
+                    : null;
               },
               textInitialValue:
                   hasInitialValue ? vessel.deadweight.toString() : null,
@@ -66,7 +69,10 @@ class VesselFormWidget extends StatelessWidget {
               label: 'LOA',
               width: .2,
               onChanged: (val) {
-                vessel.lengthOverall = _validateNotRequiredDoubleInput(val) ? (double.tryParse(val) ?? 0) : null;
+                val = val.replaceAll(new RegExp(','), '.');
+                vessel.lengthOverall = _validateNotRequiredDoubleInput(val)
+                    ? (double.tryParse(val) ?? 0)
+                    : null;
               },
               textInitialValue:
                   hasInitialValue ? vessel.lengthOverall.toString() : null,
@@ -76,7 +82,10 @@ class VesselFormWidget extends StatelessWidget {
               label: 'Beam',
               width: .2,
               onChanged: (val) {
-                vessel.beam = _validateNotRequiredDoubleInput(val) ? (double.tryParse(val) ?? 0) : null;
+                val = val.replaceAll(new RegExp(','), '.');
+                vessel.beam = _validateNotRequiredDoubleInput(val)
+                    ? (double.tryParse(val) ?? 0)
+                    : null;
               },
               textInitialValue: hasInitialValue ? vessel.beam.toString() : null,
             ),
@@ -89,9 +98,13 @@ class VesselFormWidget extends StatelessWidget {
               label: 'Depth',
               width: .2,
               onChanged: (val) {
-                vessel.depth = _validateNotRequiredDoubleInput(val) ? (double.tryParse(val) ?? 0) : null;
+                val = val.replaceAll(new RegExp(','), '.');
+                vessel.depth = _validateNotRequiredDoubleInput(val)
+                    ? (double.tryParse(val) ?? 0)
+                    : null;
               },
-              textInitialValue: hasInitialValue ? vessel.depth.toString() : null,
+              textInitialValue:
+                  hasInitialValue ? vessel.depth.toString() : null,
             ),
           ],
         ),

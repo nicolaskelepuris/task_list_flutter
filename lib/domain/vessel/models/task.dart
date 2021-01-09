@@ -41,7 +41,7 @@ class Task {
       description: ''.obs,
       deadline: DateTime.utc(1970, 1, 1).obs,
       status: Rx<TaskStatus>(TaskStatus.toDo),
-      whenToComplete: Rx<WhenToComplete>(),
+      whenToComplete: Rx<WhenToComplete>(WhenToComplete.beforeVesselArrival),
       appointmentId: RxInt(),
     );
   }
@@ -53,7 +53,7 @@ class Task {
       description: description?.value?.obs,
       deadline: deadline?.value?.obs,
       status: status?.value?.obs ?? Rx<TaskStatus>(),
-      whenToComplete: whenToComplete?.value?.obs ?? Rx<WhenToComplete>(),
+      whenToComplete: whenToComplete?.value?.obs ?? Rx<WhenToComplete>(WhenToComplete.beforeVesselArrival),
       appointmentId: appointmentId?.value?.obs,
     );
   }

@@ -74,7 +74,6 @@ class AppointmentFormWidget extends StatelessWidget {
 
   Widget _getInputWidgets() {
     switch (appointmentType?.value ?? AppointmentType.consigneeAgent) {
-      case AppointmentType.ownersProtectingAgent:
       case AppointmentType.consigneeAgent:
         return Column(
           children: [
@@ -137,6 +136,104 @@ class AppointmentFormWidget extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: Text('Has crew change?'),
+                ),
+                SizedBox(width: 2),
+                Checkbox(
+                  value: appointment.hasCrewChange.value,
+                  onChanged: (value) {
+                    appointment.hasCrewChange.value = value;
+                  },
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Builder(
+                  builder: (_) {
+                    return TextFieldWidget(
+                      label: 'On-signers',
+                      width: .2,
+                      onChanged: (val) => appointment.onSigners.value =
+                          _validateNotRequiredIntegerInput(val)
+                              ? (int.tryParse(val) ?? 0)
+                              : null,
+                      textInitialValue: hasInitialValue
+                          ? appointment.onSigners.value.toString()
+                          : null,
+                      enabled: appointment.hasCrewChange.value,
+                    );
+                  },
+                ),
+                SizedBox(width: 40),
+                Builder(
+                  builder: (_) {
+                    return TextFieldWidget(
+                      label: 'Off-signers',
+                      width: .2,
+                      onChanged: (val) => appointment.offSigners.value =
+                          _validateNotRequiredIntegerInput(val)
+                              ? (int.tryParse(val) ?? 0)
+                              : null,
+                      textInitialValue: hasInitialValue
+                          ? appointment.offSigners.value.toString()
+                          : null,
+                      enabled: appointment.hasCrewChange.value,
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
+        );
+      case AppointmentType.crewChange:
+        return Row(
+          children: [
+            Builder(
+              builder: (_) {
+                return TextFieldWidget(
+                  label: 'On-signers',
+                  width: .2,
+                  onChanged: (val) => appointment.onSigners.value =
+                      _validateNotRequiredIntegerInput(val)
+                          ? (int.tryParse(val) ?? 0)
+                          : null,
+                  textInitialValue: hasInitialValue
+                      ? appointment.onSigners.value.toString()
+                      : null,
+                  enabled: appointment.hasCrewChange.value,
+                );
+              },
+            ),
+            SizedBox(width: 40),
+            Builder(
+              builder: (_) {
+                return TextFieldWidget(
+                  label: 'Off-signers',
+                  width: .2,
+                  onChanged: (val) => appointment.offSigners.value =
+                      _validateNotRequiredIntegerInput(val)
+                          ? (int.tryParse(val) ?? 0)
+                          : null,
+                  textInitialValue: hasInitialValue
+                      ? appointment.offSigners.value.toString()
+                      : null,
+                  enabled: appointment.hasCrewChange.value,
+                );
+              },
+            ),
+          ],
+        );
+        
+      case AppointmentType.ownersProtectingAgent:
+      case AppointmentType.husbandryServices:
+        return Column(
+          children: [
             Row(
               children: [
                 Padding(

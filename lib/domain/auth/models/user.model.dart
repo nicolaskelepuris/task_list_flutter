@@ -12,10 +12,6 @@ class UserModel {
       @required this.email,
       @required this.isAdmin});
 
-  factory UserModel.fromDao(UserDao dao) {
-    return UserModel(id: dao.id, name: dao.name, email: dao.email, isAdmin: dao.isAdmin);
-  }
-
   factory UserModel.fromData(UserData data) {
     return UserModel(id: data.id, name: data.name, email: data.email, isAdmin: data.isAdmin);
   }
@@ -33,13 +29,5 @@ class UserModel {
     );
   }
 
-  Future<void> save() async {
-    var dao = toDao();
-    await dao.save();
-  }
-
-  UserDao toDao() {
-    var dao = UserDao(id: this.id, email: this.email, name: this.name);
-    return dao;
-  }
+  
 }

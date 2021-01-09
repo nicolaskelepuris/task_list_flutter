@@ -37,7 +37,7 @@ class VesselsController extends GetxController
       return vessels;
     } catch (err) {
       SnackbarUtil.showError(message: err.toString());
-      rethrow;
+      return null;
     } finally {
       _loadingController.isLoading = false;
     }
@@ -92,7 +92,7 @@ class VesselsController extends GetxController
         }
       } else {
         SnackbarUtil.showWarning(
-          message: 'Preencha os campos obrigatórios',
+          message: 'All required fields must be filled',
         );
       }
     } catch (err) {
@@ -114,10 +114,12 @@ class VesselsController extends GetxController
         depth: vesselForm.depth,
       );
 
-      SnackbarUtil.showSuccess(message: 'Vessel has been registered');
+      SnackbarUtil.showSuccess(
+          message: 'Vessel "${vessel.name}" has been registered');
       return vessel;
-    } catch (e) {
-      rethrow;
+    } catch (err) {
+      SnackbarUtil.showError(message: err.toString());
+      return null;
     }
   }
 
@@ -125,10 +127,12 @@ class VesselsController extends GetxController
     try {
       var vessel = await _vesselDomainService.updateVessel(vessel: vesselForm);
 
-      SnackbarUtil.showSuccess(message: 'Vessel has been updated');
+      SnackbarUtil.showSuccess(
+          message: 'Vessel "${vessel.name}" has been updated');
       return vessel;
-    } catch (e) {
-      rethrow;
+    } catch (err) {
+      SnackbarUtil.showError(message: err.toString());
+      return null;
     }
   }
 
@@ -159,7 +163,7 @@ class VesselsController extends GetxController
       var errorsFields = '"${fieldsWithError[0]}"';
       if (fieldsWithError.length == 1) {
         SnackbarUtil.showWarning(
-          message: 'Preencha o campo $errorsFields corretamente',
+          message: '$errorsFields must be correctly filled',
         );
       } else {
         for (var i = 1; i < fieldsWithError.length; i++) {
@@ -167,7 +171,7 @@ class VesselsController extends GetxController
         }
 
         SnackbarUtil.showWarning(
-          message: 'Preencha os campos $errorsFields corretamente',
+          message: '$errorsFields must be correctly filled',
         );
       }
     }
@@ -177,7 +181,7 @@ class VesselsController extends GetxController
 
   Future<void> loadVessels() async {
     var vessels = await getResources();
-    this.vessels.assignAll(vessels);
+    if (vessels != null) this.vessels.assignAll(vessels);
   }
 
   final vessels = <Vessel>[].obs;

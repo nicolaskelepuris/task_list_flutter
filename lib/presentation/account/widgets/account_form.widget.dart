@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:task_list_app/domain/auth/models/user.model.dart';
 import 'package:task_list_app/presentation/account/controllers/account.controller.dart';
 import 'package:task_list_app/presentation/shared/textfield/text_field.widget.dart';

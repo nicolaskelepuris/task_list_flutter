@@ -45,7 +45,7 @@ class Initializer {
           await authDomainBinding.domain.logoutUser();
           Get.offAllNamed(Routes.LOGIN);
           SnackbarUtil.showWarning(
-            message: 'Faça login novamente para continuar utilizando o sistema',
+            message: 'Please login again',
           );
         }
       },

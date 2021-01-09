@@ -26,7 +26,7 @@ class UsersPageListWidget extends GetView<UsersController> {
                 child: Obx(() {
                   return DataTableWidget<UserModel>(
                     expand: true,
-                    columns: ['Nome', 'Email'],
+                    columns: ['Name', 'E-mail'],
                     rows: controller.users.map((e) {
                       return DataRow(
                         onSelectChanged: (_) => controller.openEditScreen(e),

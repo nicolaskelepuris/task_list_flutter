@@ -27,7 +27,7 @@ class PageListWidget extends GetView<VesselsController> {
                 child: Obx(() {
                   return DataTableWidget<Vessel>(
                     expand: true,
-                    columns: ['Nome', 'IMO', 'Bandeira'],
+                    columns: ['Name', 'IMO', 'Flag'],
                     rows: controller.vessels.map((e) {
                       return DataRow(
                         onSelectChanged: (_) => controller.openEditScreen(e),

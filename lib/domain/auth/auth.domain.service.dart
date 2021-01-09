@@ -24,7 +24,6 @@ class AuthDomainService {
       token.save();
 
       var user = UserModel.fromData(response.user);
-      await user.save();
       _repository.saveUsername(user.name);
       return user;
     } catch (err) {
@@ -36,7 +35,6 @@ class AuthDomainService {
     try {
       var response = await _repository.getCurrentUserInfo();
       var user = UserModel.fromData(response);
-      await user.save();
       _repository.saveUsername(user.name);
       return user;
     } catch (err) {

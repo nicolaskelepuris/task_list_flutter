@@ -8,14 +8,8 @@ class DashboardScreen extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('DashboardScreen'),
+        title: Text('Dashboard'),
         centerTitle: true,
-      ),
-      body: Center(
-        child: Text(
-          'DashboardScreen is working', 
-          style: TextStyle(fontSize: 20),
-        ),
       ),
     );
   }

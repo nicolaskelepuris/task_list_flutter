@@ -30,7 +30,6 @@ class TaskListWidget extends GetView<AppointmentsController> {
                 'Task',
                 'Description',
                 'Deadline',
-                'When to do',
                 'Status'
               ],
               rows: appointment.tasks.map((e) {
@@ -43,8 +42,6 @@ class TaskListWidget extends GetView<AppointmentsController> {
                     DataCellWidget(
                         text: _dateToString(e.deadline.value),
                         width: double.infinity),
-                    DataCellWidget(
-                        text: e.taskWhenToComplete, width: double.infinity),
                     DataCellWidget(text: e.taskStatus, width: double.infinity),
                   ],
                 );

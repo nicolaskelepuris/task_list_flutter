@@ -52,7 +52,7 @@ class AppointmentsController extends GetxController
       return appointments;
     } catch (err) {
       SnackbarUtil.showError(message: err.toString());
-      rethrow;
+      return null;
     } finally {
       _loadingController.isLoading = false;
     }
@@ -72,7 +72,7 @@ class AppointmentsController extends GetxController
       return appointment;
     } catch (err) {
       SnackbarUtil.showError(message: err.toString());
-      rethrow;
+      return null;
     } finally {
       _loadingController.isLoading = false;
     }
@@ -186,7 +186,7 @@ class AppointmentsController extends GetxController
         }
       } else {
         SnackbarUtil.showWarning(
-          message: 'Preencha os campos obrigatórios',
+          message: 'All required fields must be filled',
         );
       }
     } catch (err) {
@@ -208,7 +208,7 @@ class AppointmentsController extends GetxController
         Get.focusScope.unfocus();
       } else {
         SnackbarUtil.showWarning(
-          message: 'Preencha os campos obrigatórios',
+          message: 'All required fields must be filled',
         );
       }
     } catch (err) {
@@ -222,10 +222,12 @@ class AppointmentsController extends GetxController
     try {
       var task = await _appointmentDomainService.registerTask(task: taskForm);
 
-      SnackbarUtil.showSuccess(message: 'Task has been registered');
+      SnackbarUtil.showSuccess(
+          message: 'Task "${task.name}" has been registered');
       return task;
-    } catch (e) {
-      rethrow;
+    } catch (err) {
+      SnackbarUtil.showError(message: err.toString());
+      return null;
     }
   }
 
@@ -233,10 +235,11 @@ class AppointmentsController extends GetxController
     try {
       var task = await _appointmentDomainService.updateTask(task: taskForm);
 
-      SnackbarUtil.showSuccess(message: 'Task has been updated');
+      SnackbarUtil.showSuccess(message: 'Task "${task.name}" has been updated');
       return task;
-    } catch (e) {
-      rethrow;
+    } catch (err) {
+      SnackbarUtil.showError(message: err.toString());
+      return null;
     }
   }
 
@@ -245,10 +248,13 @@ class AppointmentsController extends GetxController
       var appointment = await _appointmentDomainService.registerAppointment(
           appointment: appointmentForm);
 
-      SnackbarUtil.showSuccess(message: 'Appointment has been registered');
+      SnackbarUtil.showSuccess(
+          message:
+              'Appointment "${appointment.vesselName} at ${appointment.appointmentPort}" has been registered');
       return appointment;
-    } catch (e) {
-      rethrow;
+    } catch (err) {
+      SnackbarUtil.showError(message: err.toString());
+      return null;
     }
   }
 
@@ -257,10 +263,13 @@ class AppointmentsController extends GetxController
       var appointment = await _appointmentDomainService.updateAppointment(
           appointment: appointmentForm);
 
-      SnackbarUtil.showSuccess(message: 'Appointment has been updated');
+      SnackbarUtil.showSuccess(
+          message:
+              'Appointment "${appointment.vesselName} at ${appointment.appointmentPort}" has been updated');
       return appointment;
-    } catch (e) {
-      rethrow;
+    } catch (err) {
+      SnackbarUtil.showError(message: err.toString());
+      return null;
     }
   }
 
@@ -295,7 +304,7 @@ class AppointmentsController extends GetxController
       var errorsFields = '"${fieldsWithError[0]}"';
       if (fieldsWithError.length == 1) {
         SnackbarUtil.showWarning(
-          message: 'Preencha o campo $errorsFields corretamente',
+          message: '$errorsFields must be correctly filled',
         );
       } else {
         for (var i = 1; i < fieldsWithError.length; i++) {
@@ -303,7 +312,7 @@ class AppointmentsController extends GetxController
         }
 
         SnackbarUtil.showWarning(
-          message: 'Preencha os campos $errorsFields corretamente',
+          message: '$errorsFields must be correctly filled',
         );
       }
     }
@@ -313,12 +322,7 @@ class AppointmentsController extends GetxController
 
   Future<void> loadAppointments() async {
     var appointments = await getResources();
-    this.appointments.assignAll(appointments);
-  }
-
-  Future<void> loadtask() async {
-    var appointments = await getResources();
-    this.appointments.assignAll(appointments);
+    if (appointments != null) this.appointments.assignAll(appointments);
   }
 
   final appointments = <Appointment>[].obs;

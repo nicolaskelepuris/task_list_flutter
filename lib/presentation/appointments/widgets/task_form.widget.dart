@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:task_list_app/domain/core/enums/task_status.dart';
-import 'package:task_list_app/domain/core/enums/whent_to_complete.dart';
 import 'package:task_list_app/domain/core/utils/enum.util.dart';
 import 'package:task_list_app/domain/vessel/models/appointment.dart';
 import 'package:task_list_app/domain/vessel/models/task.dart';
@@ -40,7 +39,7 @@ class TaskFormWidget extends StatelessWidget {
               items: appointments ?? [],
               currentValue: appointmentSelected,
               onChange: (appointment) {
-                task.appointmentId.value = appointment.id.value;
+                task.appointmentId.value = appointment?.id?.value;
                 appointmentSelected = appointment;
               },
               itemName: (appointment) {
@@ -81,15 +80,6 @@ class TaskFormWidget extends StatelessWidget {
               label: 'Deadline',
               onChanged: (date) => task.deadline.value = date,
               dateInitialValue: task?.deadline,
-            ),
-            EnumInputWidget<WhenToComplete>(
-              title: 'When to complete?',
-              items: WhenToComplete.values,
-              currentValue: task?.whenToComplete?.value,
-              onChange: (val) => task.whenToComplete.value = val,
-              itemName: EnumUtil.taskWhenToCompleteToString,
-              placeholder: EnumUtil.taskWhenToCompleteToString(
-                  task?.whenToComplete?.value),
             ),
           ],
         ),

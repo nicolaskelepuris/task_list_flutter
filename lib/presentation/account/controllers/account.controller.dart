@@ -51,7 +51,7 @@ class AccountController extends GetxController
       return user;
     } catch (err) {
       SnackbarUtil.showError(message: err.toString());
-      rethrow;
+      return null;
     } finally {
       _loadingController.isLoading = false;
     }
@@ -94,7 +94,7 @@ class AccountController extends GetxController
         }
       } else {
         SnackbarUtil.showWarning(
-          message: 'Preencha os campos obrigatórios',
+          message: 'All required fields must be filled',
         );
       }
     } catch (err) {

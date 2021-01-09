@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "task-list-app-7efd7",
+    "production": "atlanticshipping-services"
+  }
+}

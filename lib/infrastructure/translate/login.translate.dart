@@ -18,6 +18,6 @@ class LoginTranslate {
 
   static Map<String, String> translateEN = {
     _APP_BAR: 'Welcome to Login',
-    _USER_PASSWORD_WRONG_SNACKBAR: 'User and/or password wrongs!!'
+    _USER_PASSWORD_WRONG_SNACKBAR: 'incorrect user and/or password!'
   };
 }
