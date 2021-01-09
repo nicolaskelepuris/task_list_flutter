@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_list_app/helpers/platform_checker.dart';
 import 'package:task_list_app/presentation/home/widgets/pages.controller.dart';
 
 class MenuHeaderWidget extends GetView<PagesController> {
@@ -29,6 +30,9 @@ class MenuHeaderWidget extends GetView<PagesController> {
                 ? MainAxisAlignment.start
                 : MainAxisAlignment.center,
             children: [
+              SizedBox(
+                height: PlatformChecker.isMobile() ? 10 : 0,
+              ),
               Row(
                 mainAxisAlignment: menuExpanded.value
                     ? MainAxisAlignment.spaceBetween
@@ -56,7 +60,9 @@ class MenuHeaderWidget extends GetView<PagesController> {
                         ? CrossFadeState.showFirst
                         : CrossFadeState.showSecond,
                 firstChild: SizedBox(
-                  width: MediaQuery.of(context).size.width * .1,
+                  width: PlatformChecker.isMobile()
+                      ? MediaQuery.of(context).size.width * .35
+                      : MediaQuery.of(context).size.width * .1,
                   child: image,
                 ),
                 secondChild: SizedBox(),

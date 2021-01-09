@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_list_app/helpers/platform_checker.dart';
 import 'package:task_list_app/presentation/appointments/controllers/appointments.controller.dart';
 import 'package:task_list_app/presentation/vessels/widgets/page_header.widget.dart';
 import 'package:task_list_app/presentation/vessels/widgets/save_button.widget.dart';
@@ -16,15 +17,47 @@ class AppointmentsPageRegisterWidget extends GetView<AppointmentsController> {
       children: [
         PageHeaderWidget(
           onBackPressed: controller.closeRegisterScreen,
-          options: [
-            NewButtonWidget(onTap: controller.openTaskRegisterScreen, buttonText: 'New Task',),
-            SizedBox(width: 20),
-            NewButtonWidget(onTap: controller.clearForm, buttonText: 'Clear',),
-            SizedBox(width: 20),
-            CancelButtonWidget(onTap: controller.discardEditChanges),
-            SizedBox(width: 20),
-            SaveButtonWidget(onTap: controller.saveItem),
-          ],
+          options: PlatformChecker.isMobile()
+              ? [
+                  IconButton(
+                    icon: Icon(
+                      Icons.add,
+                      size: 28,
+                    ),
+                    onPressed: controller.clearForm,
+                  ),
+                  SizedBox(width: 30),
+                  IconButton(
+                    icon: Icon(
+                      Icons.clear,
+                      size: 28,
+                    ),
+                    onPressed: controller.discardEditChanges,
+                  ),
+                  SizedBox(width: 30),
+                  IconButton(
+                    icon: Icon(
+                      Icons.save_alt,
+                      size: 28,
+                    ),
+                    onPressed: controller.saveItem,
+                  ),
+                ]
+              : [
+                  NewButtonWidget(
+                    onTap: controller.openTaskRegisterScreen,
+                    buttonText: 'New Task',
+                  ),
+                  SizedBox(width: 20),
+                  NewButtonWidget(
+                    onTap: controller.clearForm,
+                    buttonText: 'Clear',
+                  ),
+                  SizedBox(width: 20),
+                  CancelButtonWidget(onTap: controller.discardEditChanges),
+                  SizedBox(width: 20),
+                  SaveButtonWidget(onTap: controller.saveItem),
+                ],
         ),
         Expanded(
           child: SingleChildScrollView(
@@ -44,6 +77,7 @@ class AppointmentsPageRegisterWidget extends GetView<AppointmentsController> {
                     vessels: vessels,
                     vesselSelected: vesselSelected,
                     appointmentType: appointmentType,
+                    onAddTaskPressed: controller.openTaskRegisterScreen,
                   );
                 },
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_list_app/domain/auth/models/user.model.dart';
+import 'package:task_list_app/helpers/platform_checker.dart';
 import 'package:task_list_app/presentation/appointments/widgets/new_button.widget.dart';
 import 'package:task_list_app/presentation/users/controllers/users.controller.dart';
 import 'package:task_list_app/presentation/vessels/widgets/data_cell.widget.dart';
@@ -15,7 +16,15 @@ class UsersPageListWidget extends GetView<UsersController> {
       children: [
         PageHeaderWidget(
           options: [
-            NewButtonWidget(onTap: controller.openRegisterScreen),
+            PlatformChecker.isMobile()
+                ? IconButton(
+                    icon: Icon(
+                      Icons.add,
+                      size: 28,
+                    ),
+                    onPressed: controller.openRegisterScreen,
+                  )
+                : NewButtonWidget(onTap: controller.openRegisterScreen),
           ],
         ),
         Expanded(
@@ -31,8 +40,16 @@ class UsersPageListWidget extends GetView<UsersController> {
                       return DataRow(
                         onSelectChanged: (_) => controller.openEditScreen(e),
                         cells: [
-                          DataCellWidget(text: e.name, width: double.infinity),
-                          DataCellWidget(text: e.email, width: double.infinity),
+                          DataCellWidget(
+                              text: e.name,
+                              width: PlatformChecker.isMobile()
+                                  ? MediaQuery.of(context).size.width * 0.2
+                                  : double.infinity),
+                          DataCellWidget(
+                              text: e.email,
+                              width: PlatformChecker.isMobile()
+                                  ? MediaQuery.of(context).size.width * 0.5
+                                  : double.infinity),
                         ],
                       );
                     }).toList(),

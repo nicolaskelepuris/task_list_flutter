@@ -12,12 +12,13 @@ class TaskPropertyWidget extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(8.0),
           width: MediaQuery.of(context).size.width * 0.1,
-          constraints: BoxConstraints(minWidth: 100),
+          constraints: BoxConstraints(minWidth: 120),
           child: Text(
             property,
-            style: TextStyle(
+            style: TextStyle(              
                 fontWeight: bold ? FontWeight.bold : FontWeight.normal),
             overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
           ),
         ),
       ),

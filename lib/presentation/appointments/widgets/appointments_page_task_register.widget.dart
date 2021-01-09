@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_list_app/helpers/platform_checker.dart';
 import 'package:task_list_app/presentation/appointments/controllers/appointments.controller.dart';
 import 'package:task_list_app/presentation/appointments/widgets/task_form.widget.dart';
 import 'package:task_list_app/presentation/vessels/widgets/page_header.widget.dart';
@@ -17,7 +18,33 @@ class AppointmentsPageTaskRegisterWidget
       children: [
         PageHeaderWidget(
           onBackPressed: () async => await controller.closeTaskRegisterScreen(),
-          options: [
+          options: PlatformChecker.isMobile()
+              ? [
+                  IconButton(
+                    icon: Icon(
+                      Icons.add,
+                      size: 28,
+                    ),
+                    onPressed: controller.clearTaskForm,
+                  ),
+                  SizedBox(width: 30),
+                  IconButton(
+                    icon: Icon(
+                      Icons.clear,
+                      size: 28,
+                    ),
+                    onPressed: controller.discardTaskEditChanges,
+                  ),
+                  SizedBox(width: 30),
+                  IconButton(
+                    icon: Icon(
+                      Icons.save_alt,
+                      size: 28,
+                    ),
+                    onPressed: controller.saveTask,
+                  ),
+                ]
+              : [
             NewButtonWidget(
                 onTap: controller.clearTaskForm, buttonText: 'Clear'),
             SizedBox(width: 20),

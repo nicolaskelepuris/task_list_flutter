@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:task_list_app/helpers/platform_checker.dart';
 import 'package:task_list_app/presentation/shared/textfield/type_text_field.enum.dart';
 
 import 'label.widget.dart';
@@ -125,7 +126,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
     return Container(
       padding: const EdgeInsets.all(15.0),
       constraints: BoxConstraints(
-        minWidth: MediaQuery.of(context).size.width * .1,
+        minWidth: PlatformChecker.isMobile() ? MediaQuery.of(context).size.width * .7 : MediaQuery.of(context).size.width * .1,
       ),
       width: MediaQuery.of(context).size.width * (widget.width ?? .1),
       child: Column(
@@ -151,7 +152,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                     disabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 0,
-                        color: Colors.grey.withOpacity(.5),
+                        color: PlatformChecker.isMobile() ? Colors.black.withOpacity(.7) : Colors.grey.withOpacity(.5),
                       ),
                       borderRadius: BorderRadius.circular(2),
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_select/smart_select.dart';
+import 'package:task_list_app/helpers/platform_checker.dart';
 import 'package:task_list_app/presentation/shared/textfield/label.widget.dart';
 
 class EnumInputWidget<T> extends StatelessWidget {
@@ -29,9 +30,9 @@ class EnumInputWidget<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * width,
+      width: PlatformChecker.isMobile() ? MediaQuery.of(context).size.width * 0.75  : MediaQuery.of(context).size.width * width,
       padding: const EdgeInsets.only(top: 15.0),
-      constraints: BoxConstraints(minWidth: 300),
+      constraints: BoxConstraints(minWidth: PlatformChecker.isMobile() ? 200 : 300),
       child: SmartSelect<T>.single(
         modalFilter: true,
         modalType: S2ModalType.bottomSheet,

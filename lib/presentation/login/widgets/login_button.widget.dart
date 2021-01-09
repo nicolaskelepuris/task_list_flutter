@@ -1,3 +1,4 @@
+import 'package:task_list_app/helpers/platform_checker.dart';
 import 'package:task_list_app/presentation/login/controllers/login.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +8,7 @@ class LoginButtonWidget extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.3,
+        width: PlatformChecker.isMobile() ? MediaQuery.of(context).size.width * 0.6 : MediaQuery.of(context).size.width * 0.3,
         child: Obx(
           () => RaisedButton(
             onPressed: controller.enableButton ? controller.doLogin : null,

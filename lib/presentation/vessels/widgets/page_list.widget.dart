@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_list_app/domain/vessel/models/vessel.dart';
+import 'package:task_list_app/helpers/platform_checker.dart';
 import 'package:task_list_app/presentation/appointments/widgets/new_button.widget.dart';
 import 'package:task_list_app/presentation/vessels/controllers/vessels.controller.dart';
 import 'package:task_list_app/presentation/vessels/widgets/page_header.widget.dart';
@@ -16,7 +17,15 @@ class PageListWidget extends GetView<VesselsController> {
       children: [
         PageHeaderWidget(
           options: [
-            NewButtonWidget(onTap: controller.openRegisterScreen),
+            PlatformChecker.isMobile()
+                ? IconButton(
+                    icon: Icon(
+                      Icons.add,
+                      size: 28,
+                    ),
+                    onPressed: controller.openRegisterScreen,
+                  )
+                : NewButtonWidget(onTap: controller.openRegisterScreen),
           ],
         ),
         Expanded(
@@ -32,9 +41,9 @@ class PageListWidget extends GetView<VesselsController> {
                       return DataRow(
                         onSelectChanged: (_) => controller.openEditScreen(e),
                         cells: [
-                          DataCellWidget(text: e.name, width: double.infinity),
-                          DataCellWidget(text: e.imo, width: double.infinity),
-                          DataCellWidget(text: e.flag, width: double.infinity),
+                          DataCellWidget(text: e.name, width: PlatformChecker.isMobile() ? MediaQuery.of(context).size.width * 0.2 : double.infinity),
+                          DataCellWidget(text: e.imo, width: PlatformChecker.isMobile() ? MediaQuery.of(context).size.width * 0.2 : double.infinity),
+                          DataCellWidget(text: e.flag, width: PlatformChecker.isMobile() ? MediaQuery.of(context).size.width * 0.2 : double.infinity),
                         ],
                       );
                     }).toList(),

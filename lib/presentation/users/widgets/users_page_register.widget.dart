@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_list_app/domain/core/utils/dialog.util.dart';
+import 'package:task_list_app/helpers/platform_checker.dart';
 import 'package:task_list_app/presentation/appointments/widgets/cancel_button.widget.dart';
 import 'package:task_list_app/presentation/appointments/widgets/new_button.widget.dart';
 import 'package:task_list_app/presentation/users/controllers/users.controller.dart';
@@ -16,15 +17,41 @@ class UsersPageRegisterWidget extends GetView<UsersController> {
       children: [
         PageHeaderWidget(
           onBackPressed: controller.closeRegisterScreen,
-          options: [
-            NewButtonWidget(
-              onTap: controller.clearForm,
-            ),
-            SizedBox(width: 20),
-            CancelButtonWidget(onTap: controller.discardEditChanges),
-            SizedBox(width: 20),
-            SaveButtonWidget(onTap: controller.saveItem),
-          ],
+          options: PlatformChecker.isMobile()
+              ? [
+                  IconButton(
+                    icon: Icon(
+                      Icons.add,
+                      size: 28,
+                    ),
+                    onPressed: controller.clearForm,
+                  ),
+                  SizedBox(width: 30),
+                  IconButton(
+                    icon: Icon(
+                      Icons.clear,
+                      size: 28,
+                    ),
+                    onPressed: controller.discardEditChanges,
+                  ),
+                  SizedBox(width: 30),
+                  IconButton(
+                    icon: Icon(
+                      Icons.save_alt,
+                      size: 28,
+                    ),
+                    onPressed: controller.saveItem,
+                  ),
+                ]
+              : [
+                  NewButtonWidget(
+                    onTap: controller.clearForm,
+                  ),
+                  SizedBox(width: 20),
+                  CancelButtonWidget(onTap: controller.discardEditChanges),
+                  SizedBox(width: 20),
+                  SaveButtonWidget(onTap: controller.saveItem),
+                ],
         ),
         Expanded(
           child: SingleChildScrollView(

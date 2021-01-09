@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_list_app/domain/vessel/models/appointment.dart';
+import 'package:task_list_app/helpers/platform_checker.dart';
 import 'package:task_list_app/presentation/appointments/controllers/appointments.controller.dart';
 import 'package:task_list_app/presentation/vessels/widgets/data_cell.widget.dart';
 import 'package:task_list_app/presentation/vessels/widgets/data_table.widget.dart';
@@ -17,7 +18,15 @@ class AppointmentsPageListWidget extends GetView<AppointmentsController> {
       children: [
         PageHeaderWidget(
           options: [
-            NewButtonWidget(onTap: controller.openRegisterScreen),
+            PlatformChecker.isMobile()
+                ? IconButton(
+                    icon: Icon(
+                      Icons.add,
+                      size: 28,
+                    ),
+                    onPressed: controller.openRegisterScreen,
+                  )
+                : NewButtonWidget(onTap: controller.openRegisterScreen),
           ],
         ),
         Expanded(
@@ -28,30 +37,44 @@ class AppointmentsPageListWidget extends GetView<AppointmentsController> {
                 child: Obx(() {
                   return DataTableWidget<Appointment>(
                     expand: true,
-                    columns: ['Vessel', 'Type', 'ETA', 'ETB', 'ETS', 'Tasks'],
+                    columns: PlatformChecker.isMobile()
+                        ? ['Vessel', 'Port']
+                        : ['Vessel', 'Type', 'ETA', 'ETB', 'ETS', 'Tasks'],
                     rows: controller.appointments.map((e) {
                       return DataRow(
                         onSelectChanged: (_) => controller.openEditScreen(e),
-                        cells: [
-                          DataCellWidget(
-                              text: e.vesselName.value, width: double.infinity),
-                          DataCellWidget(
-                              text: e.appointmentType, width: double.infinity),
-                          DataCellWidget(
-                              text:
-                                  _dateToString(e.estimatedTimeOfArrival.value),
-                              width: double.infinity),
-                          DataCellWidget(
-                              text: _dateToString(
-                                  e.estimatedTimeOfBerthing.value),
-                              width: double.infinity),
-                          DataCellWidget(
-                              text:
-                                  _dateToString(e.estimatedTimeOfSailing.value),
-                              width: double.infinity),
-                          DataCellWidget(
-                              text: _getTasksString(e), width: double.infinity),
-                        ],
+                        cells: PlatformChecker.isMobile()
+                            ? [
+                                DataCellWidget(
+                                    text: e.vesselName.value,
+                                    width: MediaQuery.of(context).size.width * 0.2),
+                                DataCellWidget(
+                                    text: e.appointmentPort,
+                                    width: MediaQuery.of(context).size.width * 0.3),
+                              ]
+                            : [
+                                DataCellWidget(
+                                    text: e.vesselName.value,
+                                    width: double.infinity),
+                                DataCellWidget(
+                                    text: e.appointmentType,
+                                    width: double.infinity),
+                                DataCellWidget(
+                                    text: _dateToString(
+                                        e.estimatedTimeOfArrival.value),
+                                    width: double.infinity),
+                                DataCellWidget(
+                                    text: _dateToString(
+                                        e.estimatedTimeOfBerthing.value),
+                                    width: double.infinity),
+                                DataCellWidget(
+                                    text: _dateToString(
+                                        e.estimatedTimeOfSailing.value),
+                                    width: double.infinity),
+                                DataCellWidget(
+                                    text: _getTasksString(e),
+                                    width: double.infinity),
+                              ],
                       );
                     }).toList(),
                   );

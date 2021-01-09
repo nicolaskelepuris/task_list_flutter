@@ -152,13 +152,13 @@ class AuthDomainService {
         token.save();
       }
 
-      var hasUser = await _repository.hasUserSaved();
-      if (hasToken && hasUser) {
+      //var hasUser = await _repository.hasUserSaved();
+      if (hasToken) {
         return true;
       } else {
         await logoutUser();
       }
-      return hasToken && hasUser;
+      return hasToken;
     } catch (err) {
       rethrow;
     }

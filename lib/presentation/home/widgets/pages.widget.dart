@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_list_app/helpers/platform_checker.dart';
 import 'package:task_list_app/presentation/home/widgets/page_constraints.dart';
 import 'package:task_list_app/presentation/home/widgets/pages.controller.dart';
 import 'header_pages.widget.dart';
@@ -12,7 +13,7 @@ class PagesWidget extends GetView<PagesController> {
       color: Colors.white,
       child: Column(
         children: [
-          HeaderPagesWidget(),
+          PlatformChecker.isMobile() ? SizedBox() : HeaderPagesWidget(),
           Expanded(
             child: Obx(
               () {
