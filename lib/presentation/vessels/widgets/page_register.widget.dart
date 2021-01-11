@@ -19,6 +19,7 @@ class PageRegisterWidget extends GetView<VesselsController> {
           options: PlatformChecker.isMobile()
               ? [
                   IconButton(
+                    padding: EdgeInsets.zero,
                     icon: Icon(
                       Icons.add,
                       size: 28,
@@ -27,6 +28,7 @@ class PageRegisterWidget extends GetView<VesselsController> {
                   ),
                   SizedBox(width: 30),
                   IconButton(
+                    padding: EdgeInsets.zero,
                     icon: Icon(
                       Icons.clear,
                       size: 28,
@@ -35,6 +37,7 @@ class PageRegisterWidget extends GetView<VesselsController> {
                   ),
                   SizedBox(width: 30),
                   IconButton(
+                    padding: EdgeInsets.zero,
                     icon: Icon(
                       Icons.save_alt,
                       size: 28,

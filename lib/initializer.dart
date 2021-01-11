@@ -87,6 +87,7 @@ class Initializer {
         HomeRoutes.dashboard,
         HomeRoutes.vessels,
         HomeRoutes.appointments,
+        HomeRoutes.taskRegister,
       ],
     );
   }

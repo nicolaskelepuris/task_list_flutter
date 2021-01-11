@@ -21,6 +21,7 @@ class AppointmentsPageTaskRegisterWidget
           options: PlatformChecker.isMobile()
               ? [
                   IconButton(
+                    padding: EdgeInsets.zero,
                     icon: Icon(
                       Icons.add,
                       size: 28,
@@ -29,6 +30,7 @@ class AppointmentsPageTaskRegisterWidget
                   ),
                   SizedBox(width: 30),
                   IconButton(
+                    padding: EdgeInsets.zero,
                     icon: Icon(
                       Icons.clear,
                       size: 28,
@@ -37,6 +39,7 @@ class AppointmentsPageTaskRegisterWidget
                   ),
                   SizedBox(width: 30),
                   IconButton(
+                    padding: EdgeInsets.zero,
                     icon: Icon(
                       Icons.save_alt,
                       size: 28,

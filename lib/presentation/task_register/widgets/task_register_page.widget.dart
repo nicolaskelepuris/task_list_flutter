@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:task_list_app/domain/core/utils/dialog.util.dart';
 import 'package:task_list_app/helpers/platform_checker.dart';
-import 'package:task_list_app/presentation/appointments/widgets/cancel_button.widget.dart';
 import 'package:task_list_app/presentation/appointments/widgets/new_button.widget.dart';
-import 'package:task_list_app/presentation/users/controllers/users.controller.dart';
-import 'package:task_list_app/presentation/users/widgets/user_form.widget.dart';
+import 'package:task_list_app/presentation/appointments/widgets/task_form.widget.dart';
+import 'package:task_list_app/presentation/task_register/controllers/task_register.controller.dart';
 import 'package:task_list_app/presentation/vessels/widgets/page_header.widget.dart';
 import 'package:task_list_app/presentation/vessels/widgets/save_button.widget.dart';
 
-class UsersPageRegisterWidget extends GetView<UsersController> {
+class TaskRegisterPageWidget
+    extends GetView<TaskRegisterController> {
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         PageHeaderWidget(
-          onBackPressed: controller.closeRegisterScreen,
           options: PlatformChecker.isMobile()
               ? [
                   IconButton(
@@ -48,10 +46,7 @@ class UsersPageRegisterWidget extends GetView<UsersController> {
                 ]
               : [
                   NewButtonWidget(
-                    onTap: controller.clearForm,
-                  ),
-                  SizedBox(width: 20),
-                  CancelButtonWidget(onTap: controller.discardEditChanges),
+                      onTap: controller.clearForm, buttonText: 'Clear'),
                   SizedBox(width: 20),
                   SaveButtonWidget(onTap: controller.saveItem),
                 ],
@@ -62,28 +57,16 @@ class UsersPageRegisterWidget extends GetView<UsersController> {
               padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 30),
               child: Obx(
                 () {
-                  var user = controller.userForm;
-                  var hasInitialValue = user.id != null;
+                  var task = controller.taskForm;
+                  var hasInitialValue = task.id?.value != null;
+                  var appointments = controller.appointments;
+                  var appointmentSelected = controller.appointmentSelected;
 
-                  return UserFormWidget(
-                    user: user,
+                  return TaskFormWidget(
+                    task: task,
                     hasInitialValue: hasInitialValue,
-                    password: controller.password,
-                    onResetPasswordButtonPressed: () async {
-                      var password = await controller.resetPassword(
-                          user: controller.userToBeEdited);
-                      if (password != null && password.isNotEmpty) {
-                        DialogUtil.showAlertDialog(
-                            context,
-                            'Password has been reset',
-                            'New password for ${user.name}: $password');
-                      }
-                    },
-                    onDeleteUserButtonPressed: () async {
-                      await controller.deleteUser(
-                          user: controller.userToBeEdited);
-                      controller.clearForm();
-                    },
+                    appointments: appointments.toList(),
+                    appointmentSelected: appointmentSelected,
                   );
                 },
               ),

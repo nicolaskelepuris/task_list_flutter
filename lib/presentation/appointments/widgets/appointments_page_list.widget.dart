@@ -20,6 +20,7 @@ class AppointmentsPageListWidget extends GetView<AppointmentsController> {
           options: [
             PlatformChecker.isMobile()
                 ? IconButton(
+                    padding: EdgeInsets.zero,
                     icon: Icon(
                       Icons.add,
                       size: 28,

@@ -67,6 +67,7 @@ class AppointmentFormWidget extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerRight,
                     child: IconButton(
+                    padding: EdgeInsets.zero,
                       icon: Icon(
                         Icons.add,
                         size: 28,

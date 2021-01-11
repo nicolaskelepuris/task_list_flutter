@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_list_app/infrastructure/navigation/bindings/controllers/controllers_bindings.dart';
+import 'package:task_list_app/infrastructure/navigation/bindings/controllers/task_register.controller.binding.dart';
 import 'package:task_list_app/presentation/appointments/controllers/appointments.controller.dart';
 import 'package:task_list_app/presentation/dashboard/controllers/dashboard.controller.dart';
 import 'package:task_list_app/presentation/dashboard/dashboard.screen.dart';
 import 'package:task_list_app/presentation/home/widgets/menu_item_route.widget.dart';
 import 'package:task_list_app/presentation/screens.dart';
+import 'package:task_list_app/presentation/task_register/controllers/task_register.controller.dart';
 import 'package:task_list_app/presentation/users/controllers/users.controller.dart';
 import 'package:task_list_app/presentation/vessels/controllers/vessels.controller.dart';
 
@@ -67,5 +69,16 @@ abstract class HomeRoutes {
     page: AccountScreen(),
     binding: AccountControllerBinding(),
     removeBinding: () => Get.delete<AccountController>(),
+  );
+
+  static final taskRegister = MenuItemRoute(
+    id: 6,
+    descricao: 'Task Register',
+    descricaoLonga: 'Task Register',
+    icon: Icons.assignment_turned_in,
+    path: HomeNamedRoutes.TASK_REGISTER,
+    page: TaskRegisterScreen(),
+    binding: TaskRegisterControllerBinding(),
+    removeBinding: () => Get.delete<TaskRegisterController>(),
   );
 }

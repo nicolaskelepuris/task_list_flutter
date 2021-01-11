@@ -18,6 +18,7 @@ class UsersPageListWidget extends GetView<UsersController> {
           options: [
             PlatformChecker.isMobile()
                 ? IconButton(
+                    padding: EdgeInsets.zero,
                     icon: Icon(
                       Icons.add,
                       size: 28,

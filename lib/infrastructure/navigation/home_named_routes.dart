@@ -12,4 +12,6 @@ class HomeNamedRoutes {
   static const USERS = '/users';
 
   static const ACCOUNT = '/account';
+
+  static const TASK_REGISTER = '/task_register';
 }

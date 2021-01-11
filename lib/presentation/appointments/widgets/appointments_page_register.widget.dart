@@ -20,6 +20,7 @@ class AppointmentsPageRegisterWidget extends GetView<AppointmentsController> {
           options: PlatformChecker.isMobile()
               ? [
                   IconButton(
+                    padding: EdgeInsets.zero,
                     icon: Icon(
                       Icons.add,
                       size: 28,
@@ -28,6 +29,7 @@ class AppointmentsPageRegisterWidget extends GetView<AppointmentsController> {
                   ),
                   SizedBox(width: 30),
                   IconButton(
+                    padding: EdgeInsets.zero,
                     icon: Icon(
                       Icons.clear,
                       size: 28,
@@ -36,6 +38,7 @@ class AppointmentsPageRegisterWidget extends GetView<AppointmentsController> {
                   ),
                   SizedBox(width: 30),
                   IconButton(
+                    padding: EdgeInsets.zero,
                     icon: Icon(
                       Icons.save_alt,
                       size: 28,
